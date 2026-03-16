@@ -91,7 +91,12 @@ nextBtn.addEventListener("click", () => {
   currentQuestion++;
 
   if (currentQuestion < quiz.length) {
+    
+  answers.forEach((p)=>{
+p.disabled = false})
     loadQuestion();
+
+
   } else {
     heading.textContent = "Good Job!, Your quiz is completed.";
     quizAns.style.display = "none";
