@@ -51,6 +51,8 @@ const loadQuestion = () => {
 //* this part load answers 
   answers.forEach((ans, index) => {
     ans.textContent = q.answers[index];
+     ans.classList.remove("correct")  // reset each button
+    ans.classList.remove("wrong")  
   });
 };
 
@@ -64,9 +66,9 @@ answers.forEach((btn, index) => {
     if (index === quiz[currentQuestion].correct) {
       score++;
 
-      alert("correct");
+      btn.classList.add("correct");
     } else {
-      alert("wrong");
+      btn.classList.add("wrong");;
     }
 
   answers.forEach((p)=>{
@@ -91,16 +93,14 @@ nextBtn.addEventListener("click", () => {
   currentQuestion++;
 
   if (currentQuestion < quiz.length) {
-    
   answers.forEach((p)=>{
 p.disabled = false})
-    loadQuestion();
-
-
+  loadQuestion();
+  
   } else {
     heading.textContent = "Good Job!, Your quiz is completed.";
     quizAns.style.display = "none";
-    textScore.textContent = `${score} out of 5`;
+    textScore.textContent = `${score} out of ${quiz.length}`;
     nextBtn.style.display = "none";
   }
 });
