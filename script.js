@@ -37,29 +37,29 @@ const quiz = [
 ];
 
 const quizAns = document.querySelector("#quiz-ans");
-let answers = document.querySelectorAll(".answer");
+const answers = document.querySelectorAll(".answer");
 const heading = document.querySelector("#heading");
 const nextBtn = document.querySelector("#next-btn");
 const textScore = document.querySelector("#score");
+const progressText = document.querySelector("#progress");
 
 let currentQuestion = 0;
 let score = 0;
+
 const loadQuestion = () => {
   let q = quiz[currentQuestion];
 
   heading.textContent = q.question;
-//* this part load answers 
+  progressText.textContent = `Question ${currentQuestion + 1} of ${quiz.length}`;
+  //* this part load answers
   answers.forEach((ans, index) => {
     ans.textContent = q.answers[index];
-     ans.classList.remove("correct")  // reset each button
-    ans.classList.remove("wrong")  
+    ans.classList.remove("correct"); // reset each button
+    ans.classList.remove("wrong");
   });
 };
 
-
-//* ==> this part states if your answer is correct or wrong 
-
-
+//* ==> this part states if your answer is correct or wrong
 
 answers.forEach((btn, index) => {
   btn.addEventListener("click", () => {
@@ -68,40 +68,30 @@ answers.forEach((btn, index) => {
 
       btn.classList.add("correct");
     } else {
-      btn.classList.add("wrong");;
+      btn.classList.add("wrong");
     }
 
-  answers.forEach((p)=>{
-p.disabled = true
-
-  })
-
-
+    answers.forEach((p) => {
+      p.disabled = true;
+    });
   });
-
-
-
 });
-
-
-
 
 //*this part load next question
 
-
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
-
   if (currentQuestion < quiz.length) {
-  answers.forEach((p)=>{
-p.disabled = false})
-  loadQuestion();
-  
+    answers.forEach((p) => {
+      p.disabled = false;
+    });
+    loadQuestion();
   } else {
     heading.textContent = "Good Job!, Your quiz is completed.";
     quizAns.style.display = "none";
     textScore.textContent = `${score} out of ${quiz.length}`;
     nextBtn.style.display = "none";
+    progressText.style.display = "none";
   }
 });
 
